@@ -1,4 +1,4 @@
-import "../styles/title.css";
+import "./Title.css";
 const Title = (props) => {
   return (
     <div className="title-component">

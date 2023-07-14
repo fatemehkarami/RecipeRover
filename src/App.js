@@ -1,7 +1,9 @@
 import { useState } from "react";
 import "./App.css";
 import Title from "./components/Title";
-import Modal from "./components/Modalcompon";
+import Modal from "./components/Modal";
+import ShowUsers from "./components/ShowUsers";
+import NewUser from "./components/NewUser";
 
 function App() {
   const [users, setUsers] = useState([
@@ -28,36 +30,32 @@ function App() {
     setShowList(false);
   };
 
-  cons
+  const [showModal, setShowModal] = useState(false);
+
+  const handelShowOrHideModal = () => {
+    setShowModal(!showModal);
+  };
 
   return (
     <div className="App">
       <Title title="header title" subtitle="header subtitle" />
       <div>
-        {showListVar || <button onClick={showList}>show</button>}
-        {showListVar && <button onClick={hideList}>hide</button>}
+        {showListVar || <button onClick={showList}>show users</button>}
+        {showListVar && <button onClick={hideList}>hide users</button>}
       </div>
-      {showListVar &&
-        users.map((user, index) => {
-          return (
-            <div key={index}>
-              <h1>
-                {user.name}, {user.age}
-              </h1>
-              <button
-                onClick={() => {
-                  handleClick(user.id);
-                }}
-              >
-                delete
-              </button>
-            </div>
-          );
-        })}
-      <Title title="footer title" subtitle="footer subtitle" />
-      <Modal>
+      {showListVar && <ShowUsers handleClick={handleClick} users={users} />}
+      <Modal
+        handelShowOrHideModal={handelShowOrHideModal}
+        showModal={showModal}
+        mode="discosdfeunt"
+      >
         <h2>30% discount</h2>
       </Modal>
+      <button className="show-modal" onClick={handelShowOrHideModal}>
+        show modal
+      </button>
+
+      <NewUser />
     </div>
   );
 }
