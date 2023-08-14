@@ -1,6 +1,5 @@
 # RecipeRover
-RecipeRover is a web application for sharing and discovering delicious recipes. Users can browse through a variety of recipes, create their own recipes, search for specific recipes, and view detailed instructions for each recipe.
-
+RecipeRover is a web application, built using **React** that enables users to share and discover delicious recipes. Users can seamlessly browse through a diverse collection of recipes, create and share their culinary creations, perform specific recipe searches, and access detailed step-by-step instructions for each recipe.
 
 ## Features
 - Browse Recipes: Explore a collection of diverse recipes.
