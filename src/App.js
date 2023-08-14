@@ -1,61 +1,34 @@
-import { useState } from "react";
+import {
+  BrowserRouter as Router,
+  Route,
+  NavLink,
+  Routes,
+} from "react-router-dom";
+import Home from "./pages/Home/Home";
+import Create from "./pages/Create/Create";
+import Recipe from "./pages/Recipe/Recipe";
+import Search from "./pages/Search/Search";
+import Navbar from "./components/Navbar";
+import { SearchTermContext } from "./components/SearchTermContext";
 import "./App.css";
-import Title from "./components/Title";
-import Modal from "./components/Modal";
-import ShowUsers from "./components/ShowUsers";
-import NewUser from "./components/NewUser";
+import { useState } from "react";
 
 function App() {
-  const [users, setUsers] = useState([
-    { name: "Aram", age: 36, id: 11 },
-    { name: "Emad", age: 40, id: 22 },
-    { name: "Elina", age: 3, id: 33 },
-  ]);
-
-  const handleClick = (userId) => {
-    setUsers(
-      users.filter((user) => {
-        return user.id !== userId;
-      })
-    );
-  };
-
-  const [showListVar, setShowList] = useState(true);
-
-  const showList = () => {
-    setShowList(true);
-  };
-
-  const hideList = () => {
-    setShowList(false);
-  };
-
-  const [showModal, setShowModal] = useState(false);
-
-  const handelShowOrHideModal = () => {
-    setShowModal(!showModal);
-  };
+  const [searchTerm, setSearchTerm] = useState("");
 
   return (
     <div className="App">
-      <Title title="header title" subtitle="header subtitle" />
-      <div>
-        {showListVar || <button onClick={showList}>show users</button>}
-        {showListVar && <button onClick={hideList}>hide users</button>}
-      </div>
-      {showListVar && <ShowUsers handleClick={handleClick} users={users} />}
-      <Modal
-        handelShowOrHideModal={handelShowOrHideModal}
-        showModal={showModal}
-        mode="discosdfeunt"
-      >
-        <h2>30% discount</h2>
-      </Modal>
-      <button className="show-modal" onClick={handelShowOrHideModal}>
-        show modal
-      </button>
-
-      <NewUser />
+      <SearchTermContext.Provider value={{ searchTerm, setSearchTerm }}>
+        <Router>
+          <Navbar />
+          <Routes>
+            <Route path="/" element={<Home />}></Route>
+            <Route path="/create" element={<Create />}></Route>
+            <Route path="/search" element={<Search />}></Route>
+            <Route path="/recipe/:id" element={<Recipe />}></Route>
+          </Routes>
+        </Router>
+      </SearchTermContext.Provider>
     </div>
   );
 }
